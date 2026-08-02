@@ -9,12 +9,12 @@ MAX_ITERATIONS = 2
 def draft_node(state: MessagesState) -> MessagesState:
     """Generate a draft answer."""
     response = first_responder.invoke({"messages": state["messages"]})
-    return {"messages": response.content}
+    return {"messages": [response]}
 
 def revise_node(state: MessagesState) -> MessagesState:
     """Revise the answer."""
     response = revisor.invoke({"messages": state["messages"]})
-    return {"messages": response.content}
+    return {"messages": [response]}
 
 def event_loop(state: MessagesState) -> MessagesState:
     count_tool_visits = sum(
